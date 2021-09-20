@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "name": "siraimultimatesavejs",
+  "version": "1.0.0",
+  "description": "Siralim Ultimate save file decoder and encoder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Siralim",
+    "Siralim",
+    "Ultimate",
+    "save",
+    "edit",
+    "decode",
+    "encode"
+  ],
+  "author": "Alex Gurganus",
+  "license": "ISC"
+}
