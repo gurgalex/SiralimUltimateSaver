@@ -1,3 +1,4 @@
+#!/bin/python
 import re
 import codecs
 import argparse
@@ -111,7 +112,7 @@ if __name__=="__main__":
     else:
         expanded_path = args.file
 
-    if args.encrypt == 'enc':
+    if args.mode == 'enc':
         encrypt = True
     else:
         encrypt = False
