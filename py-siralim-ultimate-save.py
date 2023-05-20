@@ -84,6 +84,7 @@ def handle_decryption_of_file(filename, encrypt):
             filename = f'{filename}.decoded.txt'
         
         save_file(changed_text, filename)
+        print(f'Save location is -> {filename}')
         
     except IOError:
         print("Error reading file")
