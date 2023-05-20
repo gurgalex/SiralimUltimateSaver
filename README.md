@@ -1,3 +1,2 @@
-# SiralimUltimateSaver
-Website for Siralim Ultimate Save file Encryption and Decryption
-https://gurgalex.github.io/SiralimUltimateSaver/
+# CLI tool for Siralim Ultimate save file decryption and encryption
+This is simply a rewritten code of the [gurgalex/SiralimUltimateSaver](https://github.com/gurgalex/SiralimUltimateSaver) website version for local command-line interface (CLI) usage in Python.
