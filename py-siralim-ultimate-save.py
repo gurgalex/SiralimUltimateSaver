@@ -1,6 +1,7 @@
 import re
 import codecs
 import argparse
+import os
 
 ENCRYPTION_KEY = "QWERTY"
 match_brackets = re.compile(r'([^\[]*)\]')
@@ -105,12 +106,17 @@ if __name__=="__main__":
     )
     args = parser.parse_args()
 
+    if '~' in args.file:
+        expanded_path = os.path.expanduser(args.file)
+    else:
+        expanded_path = args.file
+
     if args.encrypt == 'enc':
         encrypt = True
     else:
         encrypt = False
 
     handle_decryption_of_file(
-        filename=args.file,
+        filename=expanded_path,
         encrypt=encrypt
     )
