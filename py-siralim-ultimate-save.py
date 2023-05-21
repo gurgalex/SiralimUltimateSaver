@@ -3,10 +3,12 @@ import re
 import codecs
 import argparse
 import os
-
+import sys
+    
 ENCRYPTION_KEY = "QWERTY"
 match_brackets = re.compile(r'([^\[]*)\]')
 match_inner_quote = re.compile(r'"(.*)"')
+
 
 def encryption(input_text, encrypt):
     output = []
@@ -92,32 +94,79 @@ def handle_decryption_of_file(filename, encrypt):
         print("Error reading file")
 
 
+def summon_add(id, summon_array) -> None:
+    id = int(id)
+    summon_array = summon_array.split(',')
+    summon_array[id] = '100'
+    summon_array = ','.join(summon_array)
+    print(f'Summon={summon_array}')
+
+
+def knowledge_add(id, arr) -> int:
+    arr = arr.split(',')
+    id = str(id)
+    find = 0
+    for i, v in enumerate(arr[::2]):
+        if v == id:
+            find = 1
+            break
+    if not find:
+        return -1
+    
+    i *= 2
+    arr[i+1] = '10000'
+    arr = ','.join(arr)
+    print(f'Array={arr}')
+    return 0
+
+
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-f", "--file",
         help="file to use",
-        required=True,
+        required=False,
     )
     parser.add_argument(
         "-m", "--mode", 
-        choices=['enc', 'dec'],
-        help="Encrypt or decrypt a save file. You can use: ['enc', 'dec'].", 
-        required=True
+        choices=['enc', 'dec', 'knowledge', 'mana'],
+        help="Encrypt or decrypt a save file.", 
+        required=False
+    )
+    parser.add_argument(
+        "-i", "--id",
+        help="Creature's ID", 
+        required=False
+    )
+    parser.add_argument(
+        "-",
+        dest='stdin',
+        action='store_true',
+        help="Read stdin. For pipe like usage", 
+        required=False
     )
     args = parser.parse_args()
-
-    if '~' in args.file:
-        expanded_path = os.path.expanduser(args.file)
+    
+    if args.stdin:
+        stdin_input = sys.stdin.read()
+        
+        if args.mode == "mana":
+            summon_add(args.id, stdin_input)
+        elif args.mode == "knowledge":
+            knowledge_add(args.id, stdin_input)
+    
     else:
-        expanded_path = args.file
+        if '~' in args.file:
+            expanded_path = os.path.expanduser(args.file)
+        else:
+            expanded_path = args.file
 
-    if args.mode == 'enc':
-        encrypt = True
-    else:
-        encrypt = False
+        if args.mode == 'enc':
+            encrypt = True
+        else:
+            encrypt = False
 
-    handle_decryption_of_file(
-        filename=expanded_path,
-        encrypt=encrypt
-    )
+        handle_decryption_of_file(
+            filename=expanded_path,
+            encrypt=encrypt
+        )
