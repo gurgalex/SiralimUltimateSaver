@@ -41,6 +41,12 @@ function convertLine(line, encrypt) {
         return null;
     }
 
+    // 2.0 save files have some lines that are not encrypted
+    const notEncryptedLine = line === "[Decorations]" || line.startsWith("String=")
+    if (notEncryptedLine) {
+        return `${line}\n`;
+    }
+
     let match;
     if ((match = match_brackets.exec(line)) !== null) {
         const changed_text = encryption(match[1], encrypt);
